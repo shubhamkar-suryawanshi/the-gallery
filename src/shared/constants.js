@@ -1,7 +1,16 @@
 export const img_array = [
+  'https://picsum.photos/200/200',
   'https://picsum.photos/200/300',
+  'https://picsum.photos/300/300',
   'https://picsum.photos/300/400',
+  'https://picsum.photos/400/400',
   'https://picsum.photos/400/500',
-  'https://picsum.photos/500/600',
   'https://picsum.photos/500/500',
+  'https://picsum.photos/500/600',
+  'https://picsum.photos/600/600',
+  'https://picsum.photos/600/700',
+  'https://picsum.photos/700/700',
+  'https://picsum.photos/700/800',
+  'https://picsum.photos/800/800',
+  'https://picsum.photos/800/900',
 ];

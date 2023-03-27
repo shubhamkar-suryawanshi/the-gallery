@@ -61,22 +61,38 @@ const Main = () => {
         {loader
           ? firstLoad.map((imgUrl, index) => {
               return (
-                <img
-                  className="w-[275px]   hover:shadow-2xl hover:shadow-gray-700"
-                  key={index}
-                  src={imgUrl}
-                  alt="MyImgs"
-                />
+                <div className="relative">
+                  <img
+                    className="w-[275px] hover:opacity-70  hover:shadow-2xl hover:shadow-gray-700"
+                    key={index}
+                    src={imgUrl}
+                    alt="MyImgs"
+                  />
+                  <button className="bg-white font-bold text-xl w-10 h-10 text-center content-center  absolute left-5 top-5 text-black  rounded-sm inline-block">
+                    🧡
+                  </button>
+                  <button className="bg-white font-bold text-xl w-10 h-10 text-center content-center  absolute right-5 top-5 text-black inline-block rounded-sm ">
+                    +
+                  </button>
+                </div>
               );
             })
           : imgs.map((i) => {
               return (
-                <img
-                  className="w-1/4  hover:shadow-2xl hover:shadow-gray-700"
-                  key={i.id}
-                  src={i.urls.regular}
-                  alt="Query"
-                />
+                <div className="relative">
+                  <img
+                    className="w-[275px] hover:opacity-70  hover:shadow-2xl hover:shadow-gray-700"
+                    key={i.id}
+                    src={i.urls.regular}
+                    alt="Query"
+                  />
+                  <button className="bg-white font-bold text-xl w-10 h-10 text-center content-center  absolute left-5 top-5 text-black  rounded-sm inline-block">
+                    🖤
+                  </button>
+                  <button className="bg-white font-bold text-xl w-10 h-10 text-center content-center  absolute right-5 top-5 text-black inline-block rounded-sm ">
+                    +
+                  </button>
+                </div>
               );
             })}
       </div>
