@@ -9,15 +9,18 @@ import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import Explore from './components/Explore';
 import Advertise from './components/Advertise';
 import Login from './components/Login';
+import Saved from './components/Saved';
 
 function App() {
   return (
-    // <Provider store={store}>
-    <div>
-      <Header />
-      <Outlet />
-    </div>
-    // </Provider>
+    <Provider store={store}>
+      <div className="relative">
+        <div className="sticky top-0">
+          <Header />
+        </div>
+        <Outlet />
+      </div>
+    </Provider>
   );
 }
 
@@ -42,6 +45,10 @@ const appRouter = createBrowserRouter([
       {
         path: '/login',
         element: <Login />,
+      },
+      {
+        path: '/liked',
+        element: <Saved />,
       },
     ],
   },

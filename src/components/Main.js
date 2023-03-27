@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { img_array } from '../shared/constants';
+import { useDispatch } from 'react-redux';
+import { saveItem, likeItem } from '../shared/cartSlice';
 
 const Main = () => {
   const [query, setQuery] = useState('');
   const [imgs, setImgs] = useState([]);
   const [firstLoad, setFirstLoad] = useState(img_array);
   const [loader, setLoader] = useState(true);
-  // x0tJ-Soxc5SyCMnHXpuW6eod9MpHfx7nLMbMQsoQuvA access key
-  // https://api.unsplash.com/photos/?client_id=YOUR_ACCESS_KEY
+
+  const dispatch = useDispatch();
 
   const downloadImages = async () => {
     const data = await fetch(
@@ -15,7 +17,6 @@ const Main = () => {
     );
     const json = await data.json();
 
-    // console.log(json);
     setImgs(json.results);
     setQuery('');
     setLoader(false);
@@ -24,12 +25,12 @@ const Main = () => {
   return (
     <div
       style={{
-        backgroundImage: `url('https://img.freepik.com/free-photo/abstract-grunge-decorative-relief-navy-blue-stucco-wall-texture-wide-angle-rough-colored-background_1258-28311.jpg?w=1380&t=st=1679847318~exp=1679847918~hmac=4d7dcb99ad018086096173f7d7c49505020426a3e120db529f1f1507de9f1165')`,
+        backgroundImage: `url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8bGlnaHQlMjBjb2xvdXJ8ZW58MHx8MHx8&w=1000&q=80')`,
       }}
       className="w-full mb:h-[50vh] sm:h-[70vh] md:h-[80vh] lg:h-[90vh] bg-no-repeat bg-cover"
     >
       <div className="mb:ml-4 sm:ml-8 mb:mb-32 sm:mb-32 space-y-5 lg:ml-72 lg:mb-80 ">
-        <div className="text-white mb:pt-10  pt-40 space-y-5">
+        <div className="text-gray-500 mb:pt-10  pt-40 space-y-5">
           <h1 className="font-bold text-4xl">The Gallary</h1>
           <div>
             <h4 className=" text-xl">The internet’s source for visuals.</h4>
@@ -56,9 +57,10 @@ const Main = () => {
 
       <div
         id="gallery"
-        className="flex mb:flex-col sm:flex-col md:flex-row flex-wrap justify-center items-center space-x-20 mb:space-x-0 sm:space-x-0 md:space-x-10 lg:space-x-20 space-y-20"
+        className="flex mb:flex-col sm:flex-col md:flex-row flex-wrap justify-center items-center space-x-20 mb:space-x-0 sm:space-x-0 md:space-x-10 lg:space-x-20 space-y-20 "
       >
-        {loader
+        {
+          /**loader
           ? firstLoad.map((imgUrl, index) => {
               return (
                 <div className="relative">
@@ -68,33 +70,59 @@ const Main = () => {
                     src={imgUrl}
                     alt="MyImgs"
                   />
-                  <button className="bg-white font-bold text-xl w-10 h-10 text-center content-center  absolute left-5 top-5 text-black  rounded-sm inline-block">
+                  <button
+                    className="bg-white font-bold text-xl w-10 h-10 text-center content-center  absolute left-5 top-5 text-black  rounded-sm inline-block"
+                    key={index}
+                    onClick={() => {
+                      dispatch(likeItem(imgUrl));
+                    }}
+                  >
                     🧡
                   </button>
-                  <button className="bg-white font-bold text-xl w-10 h-10 text-center content-center  absolute right-5 top-5 text-black inline-block rounded-sm ">
+                  <button
+                    className="bg-white font-bold text-xl w-10 h-10 text-center content-center  absolute right-5 top-5 text-black inline-block rounded-sm "
+                    key={index}
+                    onClick={() => {
+                      dispatch(saveItem(imgUrl));
+                    }}
+                  >
                     +
                   </button>
                 </div>
               );
             })
-          : imgs.map((i) => {
-              return (
-                <div className="relative">
-                  <img
-                    className="w-[275px] hover:opacity-70  hover:shadow-2xl hover:shadow-gray-700"
-                    key={i.id}
-                    src={i.urls.regular}
-                    alt="Query"
-                  />
-                  <button className="bg-white font-bold text-xl w-10 h-10 text-center content-center  absolute left-5 top-5 text-black  rounded-sm inline-block">
-                    🖤
-                  </button>
-                  <button className="bg-white font-bold text-xl w-10 h-10 text-center content-center  absolute right-5 top-5 text-black inline-block rounded-sm ">
-                    +
-                  </button>
-                </div>
-              );
-            })}
+          : */
+          imgs.map((i) => {
+            return (
+              <div className="relative">
+                <img
+                  className="w-[275px] hover:opacity-70  hover:shadow-2xl hover:shadow-gray-700"
+                  key={i.id}
+                  src={i.urls.regular}
+                  alt="Query"
+                />
+                <button
+                  className="bg-white font-bold text-xl w-10 h-10 text-center content-center  absolute left-5 top-5 text-black  rounded-sm inline-block"
+                  key={i}
+                  onClick={() => {
+                    dispatch(likeItem(i.urls.regular));
+                  }}
+                >
+                  🧡
+                </button>
+                <button
+                  className="bg-white font-bold text-xl w-10 h-10 text-center content-center  absolute right-5 top-5 text-black inline-block rounded-sm "
+                  key={i}
+                  onClick={() => {
+                    dispatch(saveItem(i.urls.regular));
+                  }}
+                >
+                  +
+                </button>
+              </div>
+            );
+          })
+        }
       </div>
     </div>
   );
